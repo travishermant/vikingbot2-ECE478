@@ -17,10 +17,13 @@ Vikingbot is a small motor-driven robot utilizing Python, ROS (in the future), a
 
 Facial Recognition
 - Vikingbot rotates to align itself with faces it detects in front [done]
+
 Gesture Recognition
 - Vikingbot will nod its head when it sees a smile [done]
+
 Color Tracking
 - Vikingbot will rotate and follow an orange ball when it is detected [done]
+
 IR Sensors
 - Vikingbot will prevent itself from crashing by using IR sensors to detect distance from obstacles
 
