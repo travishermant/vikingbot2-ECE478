@@ -1,1 +1,1 @@
-# vikingbot2-ECE478
+# Vikingbot, Portland State University, Intelligent Robotics 1
