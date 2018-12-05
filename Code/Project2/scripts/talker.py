@@ -11,15 +11,30 @@ from std_msgs.msg import Int32
 from time import sleep
 import os
 
-#handshaking signal which will indicate about recording signal
+#package responsible for the mp3 sound
+from pygame import mixer
+
+#handshaking signal which will indicate about talking done
 finishTalkPub = rospy.Publisher('TalkFinish', Int32, queue_size = 1)
 
 def start_talking(data):
     fileName = data.data
     
     #command to do recording
+    '''
     bashCommand = "aplay " + fileName
     os.system(bashCommand)
+    '''
+    
+    
+    mixer.init()
+    mixer.music.load(fileName)
+    mixer.music.play()
+
+    while mixer.music.get_busy() == True:
+        pass
+
+    mixer.quit()
     
     #publish talking done
     finishTalkPub.publish(1)

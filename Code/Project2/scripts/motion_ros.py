@@ -71,7 +71,8 @@ def RobotDeInit():
 
 #create publishers
 #this is useful for handshake purpose
-pubRobotLocation = rospy.Publisher('/RobotState', Int32, queue_size=10)
+pubRobotLocation = rospy.Publisher('RobotState', Int32, queue_size=1)
+pubRobotMotionDone = rospy.Publisher('RobotMotionDone', Int32, queue_size=1)
 
 #callback method for the motion command subscriber
 def callback(data):
@@ -79,39 +80,83 @@ def callback(data):
     
     if(motionCommand == 'f'):
         print("forward")
-        pubRobotLocation.publish(FORWARD)
         RobotFWD()
+        pubRobotLocation.publish(FORWARD)
     elif (motionCommand == 'b'):
         print("back")
-        pubRobotLocation.publish(BACKWARD)
         RobotBACK()
+        pubRobotLocation.publish(BACKWARD)
     elif (motionCommand == 'l'):
         print("left")
-        pubRobotLocation.publish(LEFT)
         RobotLEFT()
+        pubRobotLocation.publish(LEFT)
     elif (motionCommand == 'r'):
         print("right")
-        pubRobotLocation.publish(RIGHT)
         RobotRIGHT()
+        pubRobotLocation.publish(RIGHT)
     elif (motionCommand == 's'):
         print("stop")
-        pubRobotLocation.publish(STOP)
         RobotSTOP()
+        pubRobotLocation.publish(STOP)
+    elif  (motionCommand == 'fs'):
+        print("forward stop")
+        RobotFWD()
+        pubRobotLocation.publish(FORWARD)
+        #FIXME
+        #this is not good practics
+        #figure out approach without sleep
+        time.sleep(3)
+        RobotSTOP()
+        pubRobotLocation.publish(STOP)
+        pubRobotMotionDone.publish(1)
+    elif  (motionCommand == 'ls'):
+        print("left stop")
+        RobotLEFT()
+        pubRobotLocation.publish(LEFT)
+        #FIXME
+        #this is not good practics
+        #figure out approach without sleep
+        time.sleep(3)
+        RobotSTOP()
+        pubRobotLocation.publish(STOP)
+        pubRobotMotionDone.publish(1)
+    elif  (motionCommand == 'rs'):
+        print("right stop")
+        RobotRIGHT()
+        pubRobotLocation.publish(RIGHT)
+        #FIXME
+        #this is not good practics
+        #figure out approach without sleep
+        time.sleep(3)
+        RobotSTOP()
+        pubRobotLocation.publish(STOP)
+        pubRobotMotionDone.publish(1)
+    elif  (motionCommand == 'bs'):
+        print("back stop")
+        RobotBACK()
+        pubRobotLocation.publish(BACK)
+        #FIXME
+        #this is not good practics
+        #figure out approach without sleep
+        time.sleep(3)
+        RobotSTOP()
+        pubRobotLocation.publish(STOP)
+        pubRobotMotionDone.publish(1)    
         
 def motion_ros():
     print("in robot control")
     #initilize the node
     rospy.init_node("motion_ros", anonymous=True)
     #set the publishing rate
-    rate = rospy.Rate(10) # 10Hz
+    #rate = rospy.Rate(10) # 10Hz
         
     #create a subscriber for sensor values
     rospy.Subscriber("MotionCommand", String, callback)
     
     #publish motion_command values
-    while not rospy.is_shutdown():
+    #while not rospy.is_shutdown():
         #this will make sure we get scheduling for every 100 ms
-        rate.sleep()
+        #rate.sleep()
     rospy.spin()
         
 if __name__ == '__main__':
