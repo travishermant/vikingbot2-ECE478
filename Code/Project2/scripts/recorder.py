@@ -32,10 +32,12 @@ RATE = 16000
 RECORD_SECONDS = 5
 
 # pyaudio objects
+
 p = None
 stream = None
 frames = []
 rec_data = None
+
 
 # this part rids of unnessary recorder error messages
 ERROR_HANDLER_FUNC = CFUNCTYPE(None, c_char_p, c_int, c_char_p, c_int, c_char_p)
@@ -47,16 +49,18 @@ asound = cdll.LoadLibrary('libasound.so')
 asound.snd_lib_error_set_handler(c_error_handler)
 
 def record(fileName, seconds):
+    
     global rec_data
     global frames
     global p
     global stream
     
+    #frames = []
     p = pyaudio.PyAudio()
     stream = p.open(format=FORMAT, channels=CHANNELS, input_device_index=None, rate=RATE, input=True, frames_per_buffer=CHUNK)	
 
     for i in range(0, int(RATE / CHUNK * seconds)):
-        rec_data = stream.read(CHUNK)
+        rec_data = stream.read(CHUNK,exception_on_overflow = False)
         frames.append(rec_data)
 
     stream.stop_stream()
@@ -69,6 +73,7 @@ def record(fileName, seconds):
     wf.setframerate(RATE)
     wf.writeframes(b''.join(frames))
     wf.close()
+    
     rec_data = None
     frames = []
     

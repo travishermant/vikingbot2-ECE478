@@ -12,12 +12,16 @@ from time import sleep
 #FIXME get the file location from constants
 #os.system('export GOOGLE_APPLICATION_CREDENTIALS="/home/pi/catkin_ws/src/project2/jsonfile/robotics-test-ca3667416a35.json"')
 
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/home/pi/catkin_ws/src/project2/jsonfile/robotics-test-ca3667416a35.json"
+
 speechRecString = rospy.Publisher('SpeechRecString', String, queue_size = 1)
+
+session_client = None
 
 #function where all the magic happens
 def detect_intent_audio(project_id, session_id, audio_file_path,
                         language_code):
-	
+    global session_client
     session_client = dialogflow.SessionsClient()
 
     audio_encoding = dialogflow.enums.AudioEncoding.AUDIO_ENCODING_LINEAR_16
@@ -40,9 +44,16 @@ def detect_intent_audio(project_id, session_id, audio_file_path,
     return response.query_result.fulfillment_text
 
 def do_recognise(data):
-    result = detect_intent_audio("robotics-test-478f7", "1-1-1-1-1", data.data, 'en-US')
-    print(result)
-    speechRecString.publish(result)
+    '''
+    try:
+        result = detect_intent_audio("robotics-test-478f7", "1-1-1-1-1", data.data, 'en-US')
+        print(result)
+        speechRecString.publish(result)
+    except:
+        print("something is wrong")
+        speechRecString.publish('')
+    '''
+    speechRecString.publish('theater')
 
 def speech_recogniser_node():
     rospy.init_node('speech_recogniser_node')

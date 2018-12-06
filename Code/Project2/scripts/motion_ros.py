@@ -134,7 +134,7 @@ def callback(data):
     elif  (motionCommand == 'bs'):
         print("back stop")
         RobotBACK()
-        pubRobotLocation.publish(BACK)
+        pubRobotLocation.publish(BACKWARD)
         #FIXME
         #this is not good practics
         #figure out approach without sleep
