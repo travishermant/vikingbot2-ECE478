@@ -1,0 +1,9 @@
+<launch>
+	<node name ="recorder_node" pkg = "project2" type = "recorder.py" output ="screen"/>
+	<node name ="talker_node" pkg = "project2" type = "talker.py" output ="screen"/>
+	<node name ="polly_speech" pkg = "project2" type = "amazonpolly.py" output ="screen"/>
+	<node name ="motion_ros" pkg = "project2" type = "motion_ros.py" output ="screen"/>
+	<node name ="servocontrol_node" pkg = "project2" type = "servocontrol.py" output ="screen"/>
+	<node name ="speech_recogniser_node" pkg = "project2" type = "speechrecognise.py" output ="screen"/>
+	<node name ="hexapodsim_node" pkg = "project2" type = "hexapodsim.py" output ="screen"/>
+</launch>
