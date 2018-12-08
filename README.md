@@ -11,7 +11,7 @@
 
 # Project Name: Vikingbot
 
-Vikingbot is a small motor-driven robot utilizing Python, ROS (in the future), and OpenCV to perform different applications
+Vikingbot is a small motor-driven robot utilizing Python, ROS, Dialogflow, Amazon Polly, and OpenCV to perform different applications
   
 # Project Goals
 
@@ -25,13 +25,25 @@ Color Tracking
 - Vikingbot will rotate and follow an orange ball when it is detected [done]
 
 IR Sensors
-- Vikingbot will prevent itself from crashing by using IR sensors to detect distance from obstacles
+- Vikingbot will prevent itself from crashing by using IR sensors to detect distance from obstacles [done]
+
+Speech to Text
+- Using Dialogflow to check intents and respond with the correct actions [done]
+
+Text to Speech
+- Using Amazon Polly to convert lines of dialogue to MP3's so they can be played through speakers [done]
+
+ROS Integration
+- Previous components can now be used in conjunction with ROS rather than being used individually (No OpenCV yet) [done]
 
 # Hardware and Software used
 
 Software:
 - OpenCV
 - Python
+- ROS
+- Dialogflow
+- Amazon Polly
 
 Hardware: 
 - Raspberry Pi 3B
@@ -43,7 +55,7 @@ Hardware:
 - 2x DC Motor Wheel Components
 
 # Contributions
-- Travis (3D Model, Servo Control, Github Organization)
-- Abdullah (Motor Control, Servo Control)
-- Jagir (Gesture Recognition, Color Tracking)
-- Abdi (Facial Recognition)
+- Travis (3D Model, Servo Control, Github Organization, Dialogflow)
+- Abdullah (Motor Control, Servo Control, Polly)
+- Jagir (Gesture Recognition, Color Tracking, ROS)
+- Abdi (Facial Recognition, Dialogflow)
